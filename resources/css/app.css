@@ -1,0 +1,8 @@
+.dropdown-filter .dropdown-menu.show {
+    height: 300px;
+    overflow: auto;
+}
+
+.client-sort a {
+    color: #fff;
+}
