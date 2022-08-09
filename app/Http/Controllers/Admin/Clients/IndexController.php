@@ -10,8 +10,9 @@ class IndexController extends Controller
     public function __invoke()
     {
         $clients = Client::paginate(6);
-        $clientsAll = Client::all();
+        $clients_all = Client::all();
+        $clients_region = Client::all()->unique('region');
 
-        return view('admin.clients.index', compact('clients', 'clientsAll'));
+        return view('admin.clients.index', compact('clients', 'clients_all', 'clients_region'));
     }
 }

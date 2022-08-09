@@ -4,22 +4,22 @@
 
         <div class="col">
             <label class="mb-1">{{ __('Поиск по имени') }}</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" class="form-control" value="{{ Request::get('name') }}">
         </div>
 
         <div class="col">
             <label class="mb-1">{{ __('Дата договора') }}</label>
             <div class="d-flex align-items-center gap-2">
-                <input type="date" name="date[]" class="form-control">
-                <input type="date" name="date[]" class="form-control">
+                <input type="date" name="date[]" class="form-control" value="{{ Request::get('date')[0] ?? '' }}">
+                <input type="date" name="date[]" class="form-control" value="{{ Request::get('date')[1] ?? '' }}">
             </div>
         </div>
 
         <div class="col">
             <label class="mb-1">{{ __('Стоимость доставки') }}</label>
             <div class="d-flex align-items-center gap-2">
-                <input type="number" step="any" name="price[]" class="form-control" placeholder="{{ __('от ') . $clientsAll->min('price') }}" min="{{ $clientsAll->min('price') }}">
-                <input type="number" step="any" name="price[]" class="form-control" placeholder="{{ __('до ') . $clientsAll->max('price') }}" max="{{ $clientsAll->max('price') }}">
+                <input type="number" step="any" name="price[]" class="form-control" placeholder="{{ __('от ') . $clients_all->min('price') }}" min="{{ $clients_all->min('price') }}" value="{{ Request::get('price')[0] ?? '' }}">
+                <input type="number" step="any" name="price[]" class="form-control" placeholder="{{ __('до ') . $clients_all->max('price') }}" max="{{ $clients_all->max('price') }}" value="{{ Request::get('price')[1] ?? '' }}">
             </div>
         </div>
 
@@ -27,10 +27,10 @@
             <div class="dropdown dropdown-filter">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuRegion" data-bs-toggle="dropdown" aria-expanded="false">{{ __('Регион доставки') }}</button>
                 <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuRegion">
-                    @foreach($clientsAll as $key => $client)
+                    @foreach($clients_all as $key => $client)
                         <li>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="region[]" id="fertilizer-region-{{ $key }}" value="{{ $client->region }}">
+                                <input class="form-check-input" type="checkbox" name="region[]" id="fertilizer-region-{{ $key }}" value="{{ $client->region }}" {{ Request::get('region') ? (in_array($client->region, Request::get('region')) ? 'checked' : '' ) : '' }}>
                                 <label class="form-check-label" for="fertilizer-region-{{ $key }}">{{ $client->region }}</label>
                             </div>
                         </li>

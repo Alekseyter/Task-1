@@ -10,8 +10,11 @@
 
             @if($clients->isEmpty())
                 <h4 class="text-center">{{ __('Ничего не найдено') }}</h4>
-            @endif
-
+                <div class="d-flex justify-content-end align-items-start">
+                    <a href="{{ route('admin.client.create') }}" class="btn btn-primary mr-2">{{ __('Добавить клиента') }}</a>
+                    <a href="{{ route('admin.client.trash') }}" class="btn btn-dark">{{ __('Корзина') }}</a>
+                </div>
+            @else
             <table class="table table-dark table-striped">
                 <thead>
                 <tr>
@@ -53,6 +56,7 @@
                 <div>{{ $clients->withQueryString()->links() }}</div>
                 <a href="{{ route('admin.client.trash') }}" class="btn btn-dark">{{ __('Корзина') }}</a>
             </div>
+            @endif
         </div>
     </div>
 @endsection

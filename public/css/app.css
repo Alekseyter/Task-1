@@ -10272,7 +10272,7 @@ textarea.form-control-lg {
   }
 }
 .dropdown-filter .dropdown-menu.show {
-    height: 300px;
+    max-height: 300px;
     overflow: auto;
 }
 
