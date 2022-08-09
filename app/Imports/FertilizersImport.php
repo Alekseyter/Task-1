@@ -14,20 +14,20 @@ class FertilizersImport implements ToCollection, WithHeadingRow
     */
     public function collection(Collection $collection)
     {
-        foreach ($collection as $item) {
-            if(isset($item['naimenovanie']) && $item['naimenovanie'] != null) {
+        foreach ($collection as $row) {
+            if(isset($row['naimenovanie']) && $row['naimenovanie'] != null) {
                 Fertilizer::firstOrCreate([
-                    'name' => $item['naimenovanie']
+                    'name' => $row['naimenovanie']
                 ],[
-                    'name' => $item['naimenovanie'],
-                    'nitrogen' => $item['norma_azot'],
-                    'phosphorus' => $item['norma_fosfor'],
-                    'potassium' => $item['norma_kalii'],
-                    'culture_id' => $item['gruppa_kultur'],
-                    'district' => $item['raion'],
-                    'price' => $item['stoimost'],
-                    'description' => $item['opisanie'],
-                    'target' => $item['naznacenie'],
+                    'name' => $row['naimenovanie'],
+                    'nitrogen' => $row['norma_azot'],
+                    'phosphorus' => $row['norma_fosfor'],
+                    'potassium' => $row['norma_kalii'],
+                    'culture_id' => $row['gruppa_kultur'],
+                    'district' => $row['raion'],
+                    'price' => $row['stoimost'],
+                    'description' => $row['opisanie'],
+                    'target' => $row['naznacenie'],
                 ]);
             }
         }
