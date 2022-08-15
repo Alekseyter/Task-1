@@ -27,7 +27,7 @@
             <div class="dropdown dropdown-filter">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuRegion" data-bs-toggle="dropdown" aria-expanded="false">{{ __('Регион доставки') }}</button>
                 <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuRegion">
-                    @foreach($clients_all as $key => $client)
+                    @foreach($clients_region as $key => $client)
                         <li>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="region[]" id="fertilizer-region-{{ $key }}" value="{{ $client->region }}" {{ Request::get('region') ? (in_array($client->region, Request::get('region')) ? 'checked' : '' ) : '' }}>

@@ -6,8 +6,19 @@
             @include('admin.includes.clients-filter')
         </div>
         <div class="col-lg-9">
-            @include('admin.includes.clients-sort')
-
+            @if(session()->has('message'))
+                <div class="alert alert-info py-2 text-center">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            <div class="d-flex justify-content-between align-items-center">
+                @include('admin.includes.clients-sort')
+                <form action="{{ route('admin.client.import') }}" method="POST" enctype="multipart/form-data" class="mb-3">
+                    @csrf
+                    <input type="file" name="clients" required>
+                    <input type="submit" value="{{ __('Импорт') }}" class="btn btn-success">
+                </form>
+            </div>
             @if($clients->isEmpty())
                 <h4 class="text-center">{{ __('Ничего не найдено') }}</h4>
                 <div class="d-flex justify-content-end align-items-start">
@@ -53,7 +64,7 @@
             </table>
             <div class="d-flex justify-content-between align-items-start">
                 <a href="{{ route('admin.client.create') }}" class="btn btn-primary">{{ __('Добавить клиента') }}</a>
-                <div>{{ $clients->withQueryString()->links() }}</div>
+                <div>{{ $clients->withQueryString()->onEachSide(1)->links() }}</div>
                 <a href="{{ route('admin.client.trash') }}" class="btn btn-dark">{{ __('Корзина') }}</a>
             </div>
             @endif

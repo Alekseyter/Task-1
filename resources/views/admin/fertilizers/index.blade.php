@@ -60,6 +60,18 @@
             </form>
         </div>
         <div class="col">
+            @if(session()->has('message'))
+                <div class="alert alert-info py-2 text-center">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+            <div class="d-flex justify-content-end">
+                <form action="{{ route('admin.fertilizer.import') }}" method="POST" enctype="multipart/form-data" class="mb-3">
+                    @csrf
+                    <input type="file" name="fertilizers" required>
+                    <input type="submit" value="{{ __('Импорт') }}" class="btn btn-success">
+                </form>
+            </div>
             <table class="table table-dark table-striped">
                 <thead>
                 <tr>
@@ -91,7 +103,7 @@
                 </tbody>
             </table>
             <div class="d-flex justify-content-between align-items-start">
-                <div>{{ $fertilizers->links() }}</div>
+                <div>{{ $fertilizers->onEachSide(1)->links() }}</div>
                 <a href="{{ route('admin.fertilizer.trash') }}" class="btn btn-dark">{{ __('Корзина') }}</a>
             </div>
         </div>

@@ -35,6 +35,14 @@
                 </p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.import-status.index') }}" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    {{ __('Импорт') }}
+                </p>
+            </a>
+        </li>
     </ul>
 </nav>
 <!-- /.sidebar-menu -->

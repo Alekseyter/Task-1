@@ -41,6 +41,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
     Route::group(['namespace' => 'Fertilizers', 'prefix' => 'fertilizers'], function () {
         Route::get('/', 'IndexController')->name('admin.fertilizer.index');
         Route::post('/', 'StoreController')->name('admin.fertilizer.store');
+
+        Route::post('/import', 'ImportController')->name('admin.fertilizer.import');
+
         Route::get('/{fertilizer}', 'ShowController')->name('admin.fertilizer.show');
         Route::get('/{fertilizer}/edit', 'EditController')->name('admin.fertilizer.edit');
         Route::patch('/{fertilizer}', 'UpdateController')->name('admin.fertilizer.update');
@@ -59,6 +62,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 
         Route::get('/create', 'CreateController')->name('admin.client.create');
         Route::post('/', 'StoreController')->name('admin.client.store');
+
+        Route::post('/import', 'ImportController')->name('admin.client.import');
+
         Route::get('/{client}', 'ShowController')->name('admin.client.show');
         Route::get('/{client}/edit', 'EditController')->name('admin.client.edit');
         Route::patch('/{client}', 'UpdateController')->name('admin.client.update');
@@ -76,8 +82,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 
         Route::get('/trash/deleted', 'TrashController')->name('admin.user.trash');
     });
-});
 
+    Route::group(['namespace' => 'ImportStatuses', 'prefix' => 'import-statuses'], function () {
+        Route::get('/', 'IndexController')->name('admin.import-status.index');
+        Route::post('/', 'StoreController')->name('admin.import-status.store');
+    });
+});
 
 Auth::routes();
 

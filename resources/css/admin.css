@@ -1,3 +1,6 @@
+body {
+    overflow-x: hidden;
+}
 .layout-navbar-fixed.layout-fixed .wrapper .sidebar {
     margin-top: 0;
 }
