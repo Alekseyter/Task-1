@@ -85,7 +85,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 
     Route::group(['namespace' => 'ImportStatuses', 'prefix' => 'import-statuses'], function () {
         Route::get('/', 'IndexController')->name('admin.import-status.index');
-        Route::post('/', 'StoreController')->name('admin.import-status.store');
+        Route::get('/deleteAll', 'DeleteController@deleteAll')->name('admin.import-status.deleteAll');
+        Route::delete('/{importStatus}', 'DeleteController')->name('admin.import-status.delete');
     });
 });
 

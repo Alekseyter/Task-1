@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'status' => 'integer',
-            'user_id' => 'required|integer|exists:users,id',
+            'user_id' => 'integer',
         ];
     }
 }

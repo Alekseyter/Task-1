@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Imports\ClientsImport;
+use App\Models\ImportStatus;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ClientsImportJob implements ShouldQueue
@@ -23,10 +25,12 @@ class ClientsImportJob implements ShouldQueue
      */
 
     protected $clientsFilePath;
+    protected $importStatus;
 
-    public function __construct($clientsFilePath)
+    public function __construct($clientsFilePath, $importStatus)
     {
         $this->clientsFilePath = $clientsFilePath;
+        $this->importStatus = $importStatus;
     }
 
     /**
@@ -36,9 +40,12 @@ class ClientsImportJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->queue = 'ClientsImport';
-        sleep(120);
-        Excel::import(new ClientsImport(), storage_path('app/'.$this->clientsFilePath));
-        Artisan::call('queue:work', ['--queue' => 'ClientsImport','--stop-when-empty']);
+        sleep(5);
+        try {
+            Excel::import(new ClientsImport(), storage_path('app/'.$this->clientsFilePath));
+            $this->importStatus->update(['status' => 3 ]);
+        } catch (\Exception $e) {
+            $this->importStatus->update(['status' => 2 ]);
+        }
     }
 }
