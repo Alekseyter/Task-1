@@ -36,7 +36,7 @@ class FertilizersImportJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(5);
+//        sleep(5);
         Excel::import(new FertilizersImport($this->importStatus), storage_path('app/'.$this->fertilizersFilePath));
     }
 }

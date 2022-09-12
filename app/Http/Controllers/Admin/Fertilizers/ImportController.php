@@ -19,7 +19,7 @@ class ImportController extends Controller
         $importStatus = ImportStatus::create($data);
 
         $fertilizersFilePath = Storage::put('excel', $request->file('fertilizers'));
-        FertilizersImportJob::dispatch($fertilizersFilePath, $importStatus);
+        FertilizersImportJob::dispatchNow($fertilizersFilePath, $importStatus);
 
         return redirect()->route('admin.import-status.index');
     }
