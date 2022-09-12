@@ -11,7 +11,6 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ClientsImport implements ToCollection, WithHeadingRow, WithValidation, SkipsOnFailure
 {
@@ -56,7 +55,7 @@ class ClientsImport implements ToCollection, WithHeadingRow, WithValidation, Ski
     {
         return [
             'naimenovanie' => 'required|string',
-            'data_dogovora' => 'required|date',
+            'data_dogovora' => 'required|date_format:"Y-m-d"',
             'stoimost_postavki' => 'required|numeric',
             'region' => 'required|string',
         ];
@@ -69,7 +68,7 @@ class ClientsImport implements ToCollection, WithHeadingRow, WithValidation, Ski
             'naimenovanie.required' => 'Поле "Наименование" обязательно к заполнению',
             'naimenovanie.string' => 'Поле "Наименование" должно быть текстовым',
             'data_dogovora.required' => 'Поле "Дата договора" обязательно к заполнению',
-            'data_dogovora.date_format' => 'Поле "Дата договора" должно быть формата 2022-20+12',
+            'data_dogovora.date_format' => 'Поле "Дата договора" должно быть формата 2022-20-12',
             'stoimost_postavki.required' => 'Поле "Стоимость поставки" обязательно к заполнению',
             'stoimost_postavki.numeric' => 'Поле "Стоимость поставки" должно быть числовым',
             'region.required' => 'Поле "Регион" обязательно к заполнению',
