@@ -3,16 +3,14 @@
 namespace App\Jobs;
 
 use App\Imports\ClientsImport;
-use App\Models\ImportStatus;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ClientsImportJob implements ShouldQueue
 {
@@ -40,12 +38,7 @@ class ClientsImportJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(5);
-        try {
-            Excel::import(new ClientsImport(), storage_path('app/'.$this->clientsFilePath));
-            $this->importStatus->update(['status' => 3 ]);
-        } catch (\Exception $e) {
-            $this->importStatus->update(['status' => 2 ]);
-        }
+//        sleep(5);
+        Excel::import(new ClientsImport($this->importStatus), storage_path('app/' . $this->clientsFilePath));
     }
 }

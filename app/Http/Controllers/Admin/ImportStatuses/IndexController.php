@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\ImportStatuses;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\ClientsImportJob;
 use App\Models\ImportStatus;
 
 class IndexController extends Controller
@@ -15,4 +14,5 @@ class IndexController extends Controller
 
         return view('admin.import-statuses.index', compact('importStatuses', 'statuses'));
     }
+
 }

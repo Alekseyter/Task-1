@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $fertilizers = Fertilizer::paginate(6);
+        $fertilizers = Fertilizer::orderBy('id', 'DESC')->paginate(6);
         $cultures = Culture::all();
 
         return view('admin.fertilizers.index', compact('fertilizers', 'cultures'));

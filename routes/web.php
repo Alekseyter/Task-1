@@ -43,6 +43,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
         Route::post('/', 'StoreController')->name('admin.fertilizer.store');
 
         Route::post('/import', 'ImportController')->name('admin.fertilizer.import');
+        Route::get('/export', 'ExportController')->name('admin.fertilizer.export');
 
         Route::get('/{fertilizer}', 'ShowController')->name('admin.fertilizer.show');
         Route::get('/{fertilizer}/edit', 'EditController')->name('admin.fertilizer.edit');
@@ -64,6 +65,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
         Route::post('/', 'StoreController')->name('admin.client.store');
 
         Route::post('/import', 'ImportController')->name('admin.client.import');
+        Route::get('/export', 'ExportController')->name('admin.client.export');
 
         Route::get('/{client}', 'ShowController')->name('admin.client.show');
         Route::get('/{client}/edit', 'EditController')->name('admin.client.edit');
@@ -71,6 +73,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
         Route::delete('/{client}', 'DeleteController')->name('admin.client.delete');
 
         Route::get('/trash/deleted', 'TrashController')->name('admin.client.trash');
+
+        Route::group(['namespace' => 'Word', 'prefix' => 'word'], function () {
+            Route::get('/export/{client}', 'ExportController')->name('admin.client.word.export');
+        });
     });
 
     Route::group(['namespace' => 'Users', 'prefix' => 'users'], function () {

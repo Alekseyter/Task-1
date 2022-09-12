@@ -5,3 +5,34 @@ body {
     margin-top: 0;
 }
 
+/* Оюработка импорта*/
+.status-blue {
+    color: #1299DA;
+}
+.status-red {
+    color: #e74c3c;
+}
+.status-green {
+    color: #22c76c;
+}
+.errors-block {
+    max-width: 350px;
+    max-height: 120px;
+    overflow: auto;
+}
+
+.errors-block .errors-block__elem {
+    padding: 10px 0;
+    border-bottom: 1px solid #fff;
+}
+.errors-block .errors-block__elem:first-child {
+    padding-top: 0;
+}
+.errors-block .errors-block__elem:last-child {
+    border: none;
+}
+.errors-block span {
+    font-weight: 500;
+}
+
+

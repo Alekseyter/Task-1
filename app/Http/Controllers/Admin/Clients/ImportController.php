@@ -14,7 +14,6 @@ class ImportController extends Controller
     public function __invoke(Request $request)
     {
         $data = [
-            'status' => 1,
             'user_id' => Auth::id(),
         ];
         $importStatus = ImportStatus::create($data);

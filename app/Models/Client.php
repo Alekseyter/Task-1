@@ -15,4 +15,11 @@ class Client extends Model
 
     protected $table = 'clients';
     protected $guarded = false;
+    /**
+     * @var mixed
+     */
+    private $date;
+    private $name;
+    private $price;
+    private $region;
 }

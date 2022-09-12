@@ -13,4 +13,5 @@ class Culture extends Model
 
     protected $table = 'cultures';
     protected $guarded = false;
+    protected $fillable = ['name'];
 }

@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $clients = Client::paginate(6);
+        $clients = Client::orderBy('id', 'DESC')->paginate(6);
         $clients_all = Client::all();
         $clients_region = Client::all()->unique('region');
 

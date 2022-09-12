@@ -8,9 +8,9 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">{{ __('Статус') }}</th>
+                    <th scope="col">{{ __('Ошибки') }}</th>
                     <th scope="col">{{ __('Пользователь') }}</th>
                     <th scope="col">{{ __('Дата создания') }}</th>
-                    <th scope="col">{{ __('Дата завершения') }}</th>
                     <th scope="col" class="text-center">{{ __('Действие') }}</th>
                 </tr>
                 </thead>
@@ -23,16 +23,38 @@
                         <td>
                             @foreach ($statuses as $id => $status)
                                 @if ($id === $importStatus->status)
-                                    {{ $status }}
+                                    @switch($importStatus->status)
+                                        @case(1) <div class="status-blue">{{ $status }}</div> @break
+                                        @case(2) <div class="status-red">{{ $status }}</div> @break
+                                        @case(3) <div class="status-green">{{ $status }}</div> @break
+                                        @default <div>{{ $status }}</div>
+                                    @endswitch
                                 @endif
                             @endforeach
                         </td>
+                        <td>
+                            <div class="errors-block">
+                                @php
+                                    $importStatusesErrors = json_decode($importStatus->errors);
+                                    if(!(empty($importStatusesErrors))) {
+                                        $keys = array_column($importStatusesErrors, 'row');
+                                        array_multisort($keys, SORT_ASC, $importStatusesErrors);
+                                    }
+                                @endphp
+                                @if(!(empty($importStatusesErrors)))
+                                    @foreach($importStatusesErrors as $error)
+                                        <div class="errors-block__elem">
+                                            {!! 'Колонка: <span>' . $error->row . '</span><br>' !!}
+                                            {!! '<span class="errors-block__error">' . $error->errors[0] . '</span>' !!}
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </td>
                         <td>{{ $importStatus->user->name }}</td>
                         <td>{{ $importStatus->created_at }}</td>
-                        <td>{{ $importStatus->updated_at }}</td>
                         <td>
                             <div class="d-flex justify-content-center align-items-center">
-{{--                                <a href="{{ route('admin.culture.edit', $culture->id) }}" class="btn btn-success mr-3">{{ __('Изменить') }}</a>--}}
                                 <form action="{{ route('admin.import-status.delete', $importStatus->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')

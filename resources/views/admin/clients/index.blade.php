@@ -13,11 +13,14 @@
             @endif
             <div class="d-flex justify-content-between align-items-center">
                 @include('admin.includes.clients-sort')
-                <form action="{{ route('admin.client.import') }}" method="POST" enctype="multipart/form-data" class="mb-3">
-                    @csrf
-                    <input type="file" name="clients" required>
-                    <input type="submit" value="{{ __('Импорт') }}" class="btn btn-success">
-                </form>
+                <div class="d-flex">
+                    <form action="{{ route('admin.client.import') }}" method="POST" enctype="multipart/form-data" class="mb-3 pr-2 mr-2 border-right">
+                        @csrf
+                        <input type="file" name="clients" required>
+                        <input type="submit" value="{{ __('Импорт') }}" class="btn btn-success">
+                    </form>
+                    <a href="{{ route('admin.client.export') }}" class="d-block btn btn-success" style="height: fit-content;">{{ __('Экспорт') }}</a>
+                </div>
             </div>
             @if($clients->isEmpty())
                 <h4 class="text-center">{{ __('Ничего не найдено') }}</h4>
@@ -51,11 +54,12 @@
                             <div class="d-flex justify-content-center align-items-center">
 {{--                                <a href="{{ route('admin.client.show', $client->id) }}" class="btn btn-success mr-3">{{ __('Посмотреть') }}</a>--}}
                                 <a href="{{ route('admin.client.edit', $client->id) }}" class="btn btn-primary mr-3">{{ __('Изменить') }}</a>
-                                <form action="{{ route('admin.client.delete', $client->id) }}" method="POST">
+                                <form action="{{ route('admin.client.delete', $client->id) }}" method="POST" class="mr-3">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger">{{ __('Удалить') }}</button>
                                 </form>
+                                <a href="{{ route('admin.client.word.export', $client->id) }}" class="btn btn-light">{{ __('Скачать договор') }}</a>
                             </div>
                         </td>
                     </tr>

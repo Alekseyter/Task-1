@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $cultures = Culture::paginate(6);
+        $cultures = Culture::orderBy('id', 'DESC')->paginate(6);
         return view('admin.cultures.index', compact('cultures'));
     }
 }

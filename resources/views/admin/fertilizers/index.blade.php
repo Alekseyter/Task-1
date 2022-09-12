@@ -66,11 +66,12 @@
                 </div>
             @endif
             <div class="d-flex justify-content-end">
-                <form action="{{ route('admin.fertilizer.import') }}" method="POST" enctype="multipart/form-data" class="mb-3">
+                <form action="{{ route('admin.fertilizer.import') }}" method="POST" enctype="multipart/form-data" class="mb-3 pr-2 mr-2 border-right">
                     @csrf
                     <input type="file" name="fertilizers" required>
                     <input type="submit" value="{{ __('Импорт') }}" class="btn btn-success">
                 </form>
+                <a href="{{ route('admin.fertilizer.export') }}" class="d-block btn btn-success" style="height: fit-content;">{{ __('Экспорт') }}</a>
             </div>
             <table class="table table-dark table-striped">
                 <thead>

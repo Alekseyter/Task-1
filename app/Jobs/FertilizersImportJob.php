@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Imports\FertilizersImport;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,10 +21,12 @@ class FertilizersImportJob implements ShouldQueue
      */
 
     protected $fertilizersFilePath;
+    protected $importStatus;
 
-    public function __construct($fertilizersFilePath)
+    public function __construct($fertilizersFilePath, $importStatus)
     {
         $this->fertilizersFilePath = $fertilizersFilePath;
+        $this->importStatus = $importStatus;
     }
 
     /**
@@ -35,7 +36,7 @@ class FertilizersImportJob implements ShouldQueue
      */
     public function handle()
     {
-        sleep(3);
-        Excel::import(new FertilizersImport(), storage_path('app/'.$this->fertilizersFilePath));
+        sleep(5);
+        Excel::import(new FertilizersImport($this->importStatus), storage_path('app/'.$this->fertilizersFilePath));
     }
 }
